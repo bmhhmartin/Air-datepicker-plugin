@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Date Picker</title>
+    <link rel="stylesheet" href="./datepicker.min.css">
+</head>
+
+<body>
+    <input type="text" id="allDatePicker" placeholder="dd/mm/yyyy">
+
+
+
+
+    <script src="./datepicker.min.js"></script>
+    <script src="./datepicker.en.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function() {
+            var disabledDays = [0, 6],
+                datepicker = $('#datereqPick, #allDatePicker').datepicker().data('datepicker'),
+                $picker = $('#datereqPick, #allDatePicker');
+
+            $picker.datepicker({
+                language: 'en',
+                autoClose: true,
+                minDate: new Date(),
+                onRenderCell: function(date, cellType) {
+                    if (cellType == 'day') {
+                        var day = date.getDay(),
+                            isDisabled = disabledDays.indexOf(day) != -1;
+                        return {
+                            disabled: isDisabled
+                        };
+                    }
+                },
+                onSelect: function(formattedDate, date, inst) {
+                    datepicker.hide();
+                }
+            });
+
+            // Set Dates Manually
+            $picker.data('datepicker').selectDate(new Date('12/30/2021'));
+        });
+        //datepicker js
+    </script>
+</body>
+
+</html>
